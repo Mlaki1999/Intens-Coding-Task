@@ -22,3 +22,8 @@ CREATE TABLE candidate_skills (
     PRIMARY KEY(candidate_id, skill_id)
 );
 
+username: postgres
+password: mladen
+Port:8085
+
+
