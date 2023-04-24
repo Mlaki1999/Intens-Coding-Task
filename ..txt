@@ -24,6 +24,6 @@ CREATE TABLE candidate_skills (
 
 username: postgres
 password: mladen
-Port:8085
+
 
 
