@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Candidates API
+  description: A RESTful API for managing job candidates
+  version: 1.0.0
+servers:
+  - url: http://localhost:8085
+paths:
+  /candidates:
+    get:
+      summary: Get all candidates
+      operationId: getAllCandidates
+      tags:
+        - candidates
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidate'
+    post:
+      summary: Create a new candidate
+      operationId: createCandidate
+      tags:
+        - candidates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Candidate'
+      responses:
+        '201':
+          description: Candidate created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Candidate'
+  /candidates/{id}:
+    get:
+      summary: Get a candidate by ID
+      operationId: getCandidateById
+      tags:
+        - candidates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the candidate to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Candidate'
+        '404':
+          description: Candidate not found
+    put:
+      summary: Update a candidate by ID
+      operationId: updateCandidateById
+      tags:
+        - candidates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the candidate to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Candidate'
+      responses:
+        '200':
+          description: Candidate updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Candidate'
+        '404':
+          description: Candidate not found
+    delete:
+      summary: Delete a candidate by ID
+      operationId: deleteCandidateById
+      tags:
+        - candidates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the candidate to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Candidate deleted
+        '404':
+          description: Candidate not found
+components:
+  schemas:
+    Candidate:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        contactNumber:
+          type: string
+        email:
+          type: string
+      required:
+        - name
+        - dateOfBirth
+        - contactNumber
+        - email

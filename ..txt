@@ -1,0 +1,24 @@
+Potrebno je u Postgres bazi podataka napraviti bazu hr_platform i tabele : 
+
+
+CREATE DATABASE hr_platform;
+
+CREATE TABLE candidates (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    contact_number VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE skills (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE candidate_skills (
+    candidate_id INTEGER REFERENCES candidates(id),
+    skill_id INTEGER REFERENCES skills(id),
+    PRIMARY KEY(candidate_id, skill_id)
+);
+

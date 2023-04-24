@@ -1,0 +1,129 @@
+swagger: "2.0"
+info:
+  description: "API for managing skills"
+  version: "1.0.0"
+  title: "Skill API"
+basePath: "/api"
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+paths:
+  /skills:
+    get:
+      summary: "Get all skills"
+      tags:
+        - "Skills"
+      responses:
+        "200":
+          description: "A list of skills"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Skill"
+
+    post:
+      summary: "Create a new skill"
+      tags:
+        - "Skills"
+      parameters:
+        - name: "skill"
+          in: "body"
+          description: "Skill object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/SkillInput"
+      responses:
+        "201":
+          description: "The newly created skill"
+          schema:
+            $ref: "#/definitions/Skill"
+
+  /skills/{id}:
+    get:
+      summary: "Get a skill by ID"
+      tags:
+        - "Skills"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the skill to get"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: "The skill with the given ID"
+          schema:
+            $ref: "#/definitions/Skill"
+        "404":
+          description: "Skill not found"
+
+    put:
+      summary: "Update a skill by ID"
+      tags:
+        - "Skills"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the skill to update"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "skill"
+          in: "body"
+          description: "Skill object that needs to be updated"
+          required: true
+          schema:
+            $ref: "#/definitions/SkillInput"
+      responses:
+        "200":
+          description: "The updated skill"
+          schema:
+            $ref: "#/definitions/Skill"
+        "404":
+          description: "Skill not found"
+
+    delete:
+      summary: "Delete a skill by ID"
+      tags:
+        - "Skills"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the skill to delete"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "204":
+          description: "Skill deleted successfully"
+        "404":
+          description: "Skill not found"
+
+definitions:
+  Skill:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "The ID of the skill"
+      name:
+        type: "string"
+        description: "The name of the skill"
+    required:
+      - "id"
+      - "name"
+
+  SkillInput:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "The name of the skill"
+    required:
+      - "name"
